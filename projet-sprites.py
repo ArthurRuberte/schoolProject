@@ -10,7 +10,7 @@ fenetre = pygame.display.set_mode((2160, 720), RESIZABLE)
 fond = pygame.image.load("maxresdefault.jpg").convert()
 fenetre.blit(fond, (0,0))
 
-garde1 = pygame.image.load("garde1.png").convert()
+garde1 = pygame.image.load("garde1.png").convert_alpha()
 position_garde1 = garde1.get_rect()
 
 stone = pygame.image.load("stone.jpg").convert()
@@ -108,7 +108,6 @@ while continuer:
 					sperso.move(0,10)
 					print("down", sperso.rect)
 	
-				
 				if event.key == K_z:
 					sperso.move(0,-10)
 					print("up",sperso.rect)
@@ -121,13 +120,20 @@ while continuer:
 					sperso.move(10,0)
 					print("right",sperso.rect)
 		
-						
+			
+			obstacles = [sblock, sblock2, sblock3, sblock4, sblock5, sblock6, sblock7]
+			for obst in obstacles:
+				if pygame.sprite.collide_mask(sperso, obst) != None :
+					print('collision masque')
+					print(prevposition)
+					print(sperso.rect)
+					sperso.rect = prevposition
 			if pygame.sprite.collide_mask(sperso, sblock) != None :	
 				print('collision masque')
 				print(prevposition)
 				print(sperso.rect)
 				sperso.rect = prevposition
-			elif pygame.sprite.collide_mask(sperso, sblock2) != None :
+		 	elif pygame.sprite.collide_mask(sperso, sblock2) != None :
 				print('collision masque')
 				print(prevposition)
 				print(sperso.rect)
@@ -158,6 +164,7 @@ while continuer:
 				print(prevposition)
 				print(sperso.rect)
 				sperso.rect = prevposition
+				fenetre.blit(fond_village1, (0,0))
 				
 			fenetre.blit(fond, (0,0))
 			fenetre.blit(fond, (1080, 0))	
